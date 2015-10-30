@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" id="" class="">
+    <link rel="stylesheet" href="assets/css/master.css" media="screen" charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div class="container">
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      <img src="./cdcdcdc.com" alt="" />
+    </div>
+  </body>
+  <script type="text/javascript">
+  var app = angular.module('horoscope', ['ui.router']);
+
+  app.run(function($rootScope, $state, config, FB_API) {
+    function goToZodiacSign() {
+      $rootScope.loaded = true;
+      $state.go('horoscope.bysign',
+        sign: $rootScope.user_sign
+      });
+    }
+    FB_API.initFB_SDK()
+      .then(FB_API.login)
+      .then(FB_API.getUser)
+      .then(function(data) {
+        var parts = data.birthday.split("/");
+        $rootScope.user_sign = ($rootScope.user_sign) ? $rootScope.user_sign : getZodiacalSign(parts[0], parts[1]);
+        $rootScope.user = data;
+        console.log(data.name);
+        console.log(data.email);
+        goToZodiacSign();
+      }, function(err) {
+        $rootScope.user_sign = ($rootScope.user_sign) ? $rootScope.user_sign : 'belier';
+        goToZodiacSign();
+      });
+
+    $rootScope.$on('$stateChangeSuccess', function(evt, toState) {
+      if (toState.name === 'horoscope') {
+        $state.go('horoscope.bysign', {
+          sign: $rootScope.user_sign
+        });
+      }
+    });
+  })
+
+  </script>
+</html>

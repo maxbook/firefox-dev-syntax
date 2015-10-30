@@ -1,0 +1,17 @@
+{
+  "name": "firefox-dev-syntax",
+  "theme": "syntax",
+  "version": "0.0.0",
+  "description": "A atom theme Syntax based on firefox developper syntax",
+  "keywords": [
+    "syntax",
+    "theme",
+    "firefox",
+    "developper"
+  ],
+  "repository": "https://github.com/atom/firefox-dev-syntax",
+  "license": "MIT",
+  "engines": {
+    "atom": ">=1.0.0 <2.0.0"
+  }
+}
